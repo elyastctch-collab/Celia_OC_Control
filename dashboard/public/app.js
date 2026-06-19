@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isRunning) {
                     gatewayStatusBadge.textContent = 'ĐANG CHẠY';
                     gatewayStatusBadge.className = 'badge badge-on';
-                    openWebBtn.disabled = false;
+                    openWebBtn.classList.remove('disabled');
+                    openWebBtn.href = `http://127.0.0.1:18789/${currentToken ? '?token=' + currentToken : ''}`;
 
                     // Auto-open Web UI in a new tab if newly started
                     if (!autoOpenedTab && currentToken) {
@@ -85,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     gatewayStatusBadge.textContent = 'ĐANG TẮT';
                     gatewayStatusBadge.className = 'badge badge-off';
-                    openWebBtn.disabled = true;
+                    openWebBtn.classList.add('disabled');
+                    openWebBtn.href = '#';
                     autoOpenedTab = false;
                 }
 
@@ -171,10 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Event Listeners: Open Web UI Button
-    openWebBtn.addEventListener('click', () => {
-        if (currentToken) {
-            window.open(`http://127.0.0.1:18789/?token=${currentToken}`, '_blank');
-        } else {
+    openWebBtn.addEventListener('click', (e) => {
+        if (openWebBtn.classList.contains('disabled')) {
+            e.preventDefault();
+            return;
+        }
+        if (!currentToken) {
+            e.preventDefault();
             appendLog('[System] Không tìm thấy Token xác thực. Hãy kiểm tra trạng thái.');
         }
     });

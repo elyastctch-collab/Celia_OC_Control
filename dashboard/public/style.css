@@ -318,10 +318,11 @@ input:checked + .slider:before {
     transform: translateY(1px);
 }
 
-.action-btn:disabled {
+.action-btn:disabled, .action-btn.disabled {
     opacity: 0.3;
     cursor: not-allowed;
     border-color: var(--border-color);
+    pointer-events: none;
 }
 
 /* Model Radio Option Selection */
@@ -518,6 +519,7 @@ input:checked + .slider:before {
 .overlay.hidden {
     opacity: 0;
     pointer-events: none;
+    display: none;
 }
 
 .spinner-container {

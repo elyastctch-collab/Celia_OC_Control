@@ -197,6 +197,28 @@ const server = http.createServer(async (req, res) => {
 
                     broadcastLog('[System] Starting OpenClaw Gateway process...');
                     res.end(JSON.stringify({ success: true, message: 'Gateway start signal sent.' }));
+
+                    // Automatically open browser from backend to bypass popup blocker
+                    setTimeout(() => {
+                        let token = '';
+                        try {
+                            if (fs.existsSync(OPENCLAW_JSON_PATH)) {
+                                const config = JSON.parse(fs.readFileSync(OPENCLAW_JSON_PATH, 'utf8'));
+                                token = config.gateway.auth.token || '';
+                            }
+                        } catch (e) {
+                            console.error('Error reading config for auto-open:', e);
+                        }
+                        const url = `http://127.0.0.1:18789/${token ? '?token=' + token : ''}`;
+                        exec(`start "" "${url}"`, (err) => {
+                            if (err) {
+                                console.error('Failed to auto-open browser from server:', err);
+                            } else {
+                                broadcastLog('[System] Dashboard Server đã tự động mở giao diện OpenClaw trên trình duyệt.');
+                            }
+                        });
+                    }, 2000);
+
                 } catch (e) {
                     res.end(JSON.stringify({ success: false, error: e.message }));
                 }

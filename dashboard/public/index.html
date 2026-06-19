@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celia - OpenClaw Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars-bg"></div>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="logo-area">
+                <span class="logo-icon">🌸</span>
+                <div class="logo-text">
+                    <h1>Celia</h1>
+                    <p>OpenClaw Control Panel</p>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot" id="connection-status-dot"></span>
+                <span id="connection-status-text">Đang kết nối Dashboard...</span>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <main class="dashboard-main">
+            <!-- Left Panel: Controls -->
+            <section class="control-panel glass">
+                <div class="panel-section">
+                    <h2>Nguồn Hệ Thống</h2>
+                    <div class="power-control">
+                        <span class="control-label">OpenClaw Gateway</span>
+                        <label class="switch">
+                            <input type="checkbox" id="power-toggle" disabled>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="power-status-sub">
+                        Trạng thái: <span id="gateway-status-badge" class="badge badge-off">ĐANG TẮT</span>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <h2>Mở Giao Diện Web Chính</h2>
+                    <p class="section-desc">Bật nguồn sẽ tự động mở tab Web chính. Nếu bị chặn, anh có thể bấm nút dưới đây:</p>
+                    <button id="open-web-btn" class="action-btn" disabled>
+                        <span>🔗 Mở Web OpenClaw</span>
+                    </button>
+                </div>
+
+                <div class="panel-section">
+                    <h2>Cấu Hình Tuyến Mô Hình</h2>
+                    <p class="section-desc">Gạt chọn mô hình chính. Hệ thống sẽ tự động ghi cấu hình và khởi động lại Gateway.</p>
+                    
+                    <div class="model-selectors">
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/poolside/laguna-xs.2:free" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Poolside Laguna-XS</span>
+                                <span class="model-type">Free Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/openai/gpt-oss-120b:free" disabled>
+                            <span class="model-box">
+                                <span class="model-title">GPT-OSS 120B</span>
+                                <span class="model-type">Free Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/moonshotai/kimi-k2.6:free" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Moonshot Kimi-K2.6</span>
+                                <span class="model-type">Free Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="google/gemini-3-flash-preview" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Google Gemini 3 Flash</span>
+                                <span class="model-type">Fast Model (Google API)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/nvidia/nemotron-3-ultra-550b-a55b:free" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Nvidia Nemotron 550B</span>
+                                <span class="model-type">Free Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/z-ai/glm-5.2" disabled>
+                            <span class="model-box">
+                                <span class="model-title">GLM 5.2</span>
+                                <span class="model-type">Z-AI Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/z-ai/glm-5.1" disabled>
+                            <span class="model-box">
+                                <span class="model-title">GLM 5.1</span>
+                                <span class="model-type">Z-AI Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/minimax/minimax-m3" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Minimax M3</span>
+                                <span class="model-type">Minimax Model (OpenRouter)</span>
+                            </span>
+                        </label>
+
+                        <label class="model-option">
+                            <input type="radio" name="model-select" value="openrouter/moonshotai/kimi-k2.7-code" disabled>
+                            <span class="model-box">
+                                <span class="model-title">Kimi K2.7 Code</span>
+                                <span class="model-type">Specialized Code Model (OpenRouter)</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Logs Terminal -->
+            <section class="log-panel glass">
+                <div class="log-header">
+                    <h2>Màn Hình Log Hoạt Động (Realtime)</h2>
+                    <div class="log-actions">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="autoscroll-toggle" checked>
+                            <span class="checkmark"></span>
+                            Tự cuộn
+                        </label>
+                        <button id="clear-log-btn" class="clear-btn">Xóa Log</button>
+                    </div>
+                </div>
+                <div class="terminal-container">
+                    <div id="log-terminal" class="terminal-body">
+                        <div class="log-line system-line">[System] Đang khởi tạo màn hình log...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="overlay hidden">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <p id="loading-text">Đang áp dụng thay đổi...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

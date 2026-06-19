@@ -1,0 +1,45 @@
+{
+    "gateway": {
+        "mode": "local",
+        "auth": {
+            "mode": "token",
+            "token": "YOUR_SECURE_TOKEN_HERE"
+        }
+    },
+    "agents": {
+        "defaults": {
+            "workspace": "./workspace",
+            "model": {
+                "primary": "openrouter/google/gemini-2.5-flash",
+                "fallbacks": [
+                    "openrouter/google/gemini-2.5-pro",
+                    "openrouter/meta-llama/llama-3-8b-instruct:free"
+                ]
+            }
+        },
+        "list": [
+            {
+                "id": "celia",
+                "identity": {
+                    "name": "Celia",
+                    "theme": "helpful assistant",
+                    "emoji": "🌸"
+                }
+            }
+        ]
+    },
+    "channels": {
+        "telegram": {
+            "enabled": false,
+            "botToken": "YOUR_TELEGRAM_BOT_TOKEN_HERE",
+            "allowFrom": [],
+            "dmPolicy": "allowlist"
+        }
+    },
+    "messages": {
+        "visibleReplies": "automatic"
+    },
+    "meta": {
+        "lastTouchedVersion": "2026.6.5"
+    }
+}

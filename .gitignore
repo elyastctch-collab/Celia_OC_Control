@@ -1,0 +1,12 @@
+# Logs
+*.log
+dashboard/gateway.stdout.log
+dashboard/gateway.stderr.log
+
+# Operating system files
+Thumbs.db
+db.ss
+*.LNK
+
+# Secrets (Users must configure their own .env)
+openclaw/.env
